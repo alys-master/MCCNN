@@ -36,8 +36,6 @@ def xconv(pts, fts, qrs, tag, N, K, D, P, C, C_pts_fts, is_training, with_X_tran
         X_0_C = tf.concat([X_0, X_0_1, X_0_2], axis=-1, name=tag + 'X_0_C')
         X_0_KK = tf.reshape(X_0_C, (N, P, 3*K, K), name=tag + 'X_0_KK')
         X_1 = pf.depthwise_conv2d(X_0_KK, K, tag + 'X_1', is_training, (1, 3*K))
-        #X_0_KK = tf.reshape(X_0, (N, P, K, K), name=tag + 'X_0')
-        #X_1 = pf.depthwise_conv2d(X_0_KK, K, tag + 'X_1', is_training, (1, K))
         X_1_KK = tf.reshape(X_1, (N, P, K, K), name=tag + 'X_1_KK')
         X_2 = pf.depthwise_conv2d(X_1_KK, K, tag + 'X_2', is_training, (1, K), activation=None)
         X_2_KK = tf.reshape(X_2, (N, P, K, K), name=tag + 'X_2_KK')
@@ -57,7 +55,7 @@ def xconv(pts, fts, qrs, tag, N, K, D, P, C, C_pts_fts, is_training, with_X_tran
         return fts_conv_3d
 
 
-class PointCNN:
+class MCCNN:
     def __init__(self, points, features, is_training, setting):
         xconv_params = setting.xconv_params
         fc_params = setting.fc_params
