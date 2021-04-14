@@ -8,6 +8,6 @@ from mccnn import MCCNN
 
 class Net(MCCNN):
     def __init__(self, points, features, is_training, setting):
-        PointCNN.__init__(self, points, features, is_training, setting)
+        MCCNN.__init__(self, points, features, is_training, setting)
         self.logits = pf.dense(self.fc_layers[-1], setting.num_class, 'logits',
                                is_training, with_bn=False, activation=None)
